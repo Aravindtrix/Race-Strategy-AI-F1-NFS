@@ -33,9 +33,9 @@ The agent races automatically at full speed, learns from collisions and off-trac
 1️⃣ Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/F1-NFS-RaceStrategy-AI.git
+git clone https://github.com/Aravindtrix/Race-Strategy-AI-F1-NFS
 cd F1-NFS-RaceStrategy-AI
-
+```
 2️⃣ Create virtual environment:
 
 python -m venv venv
