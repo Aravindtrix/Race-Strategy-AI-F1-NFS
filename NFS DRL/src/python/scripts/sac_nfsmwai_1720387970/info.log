@@ -1,0 +1,4 @@
+2024-07-08 03:02:57,661 - INFO - n_updates: 7580610, episode: 0, done_reason: vehicle_reverse, lap_time: 0.5318589210510254, new_best_laptime: True, current_best_lap_time: inf
+2024-07-08 03:02:58,270 - INFO - n_updates: 7580610, episode: 1, done_reason: vehicle_reverse, lap_time: 0.5913228988647461, new_best_laptime: True, current_best_lap_time: inf
+2024-07-08 03:02:58,858 - INFO - n_updates: 7580610, episode: 2, done_reason: vehicle_reverse, lap_time: 0.5678980350494385, new_best_laptime: True, current_best_lap_time: inf
+2024-07-08 03:02:59,419 - INFO - n_updates: 7580610, episode: 3, done_reason: vehicle_reverse, lap_time: 0.5483431816101074, new_best_laptime: True, current_best_lap_time: inf

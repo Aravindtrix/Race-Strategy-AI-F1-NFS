@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>A Competitive Time-Trial AI for Need for Speed: Most Wanted Using Deep Reinforcement Learning</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
+    <link rel="stylesheet" href="libs/remark-css-0.0.1/schw4rz.css" type="text/css" />
+    <link rel="stylesheet" href="libs/remark-css-0.0.1/schw4rz-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+
+.subtitle[
+
+]
+.author[
+
+.date[
+
+
+---
+
+
+
+
+
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Introduction
+
+---
+# Introduction: eSports Athlete In Another Life 15 Years Ago
+
+.pull-left-75[
+&lt;img src="img/autograph.png" alt="nfsmw logo" style="width: 600px; display: block; margin: 0 auto;"/&gt;
+]
+
+.pull-right-25[
+&lt;img src="img/nfsmw.svg" alt="nfsmw logo" style="width: 400px; display: block; margin: 0 auto;"/&gt;
+
+&lt;img src="img/nfsc.svg" alt="nfsc logo" style="width: 400px; display: block; margin: 0 auto;"/&gt;
+
+&lt;img src="img/nfsps.svg" alt="nfsmps logo" style="width: 400px; display: block; margin: 0 auto;"/&gt;
+
+&lt;img src="img/nfss.svg" alt="nfsmss logo" style="width: 400px; display: block; margin: 0 auto;"/&gt;
+]
+
+---
+# Introduction to Need for Speed:Most Wanted (2005)
+
+### Introduction
+
+- Arcade racing game, best selling game of the franchise with more than 16m copies sold
+
+- Popular eSports title with major tournaments at [Electronic Sports League (ESL)](https://de.wikipedia.org/wiki/Electronic_Sports_League) and [World Cyber Games (WCG)](https://de.wikipedia.org/wiki/World_Cyber_Games)
+
+### Game Mode: Circuit (Basics)
+
+- Played in **races** on **circuits** in 1:1 mode
+
+- Usually 5-6 **laps** with standing start, first to complete all laps wins
+
+- All **tuning** (except **Junkman** parts by [WCG](https://de.wikipedia.org/wiki/World_Cyber_Games) rules) and **cars** allowed (Best: [Lotus Elise]() and [Porsche Carrera GT]())
+
+- **NOS** (reason: cheating) and **Collision** (reason: lags) disabled by [ESL](https://de.wikipedia.org/wiki/Electronic_Sports_League) and [WCG](https://de.wikipedia.org/wiki/World_Cyber_Games) rules
+
+---
+# Introduction: Unofficial World Record at Heritage Heights*
+
+&lt;center&gt;&lt;iframe width="650" height="450" src="https://www.youtube.com/embed/nUaL7NJvQII?&amp;amp;start=24" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen&gt;&lt;/iframe&gt;&lt;/center&gt;
+
+[\*] By [ESL](https://de.wikipedia.org/wiki/Electronic_Sports_League) rules an to the best of my knowledge at the time. There are no official leaderboards.
+
+---
+# Introduction: Sony Published Gran Turismo Sophy in 2022
+
+.pull-left[
+&lt;img src="img/nature_cover.jpg" alt="nature cover" style="width: 375px; display: block; margin: 0 auto;"/&gt;
+]
+
+.pull-right[
+
+&lt;img src="img/sophy.svg" alt="nature cover" style="width: 150px; display: block; margin: 0 auto;"/&gt;
+
+&lt;img src="img/logo_text.svg" alt="nature cover" style="width: 150px; display: block; margin: 0 auto;"/&gt;
+
+&lt;br&gt;
+Sony[1] **F. Fuchs, Y. Song, E. Kaufmann, D. Scaramuzza and P. Dürr:**, Super-Human Performance in Gran Turismo Sport Using Deep Reinforcement Learning, *IEEE Robotics and Automation Letters, vol. 6, no. 3, pp. 4257-4264, July 2021, doi: https://10.1109/LRA.2021.3064284*
+
+Sony[2] **Wurman, P.R., Barrett, S., Kawamoto, K. et al.:** Outracing champion Gran Turismo drivers with deep reinforcement learning. *Nature 602, 223–228 (2022). https://doi.org/10.1038/s41586-021-04357-7*
+
+]
+
+---
+# Introduction: And I Thought...
+
+--
+
+&lt;img src="img/how_hard.jpg" alt="math vision" style="width: 800px; display: block; margin: 0 auto;"/&gt;
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# A Competitive Time-Trial AI for NFS:MW Using Deep RL
+
+
+---
+# A Competitive Time-Trial AI for NFS:MW Using Deep RL
+
+### YES, but Why...?
+
+.pull-left-75[
+- **Because why Not?!**
+    
+- **Hardware** to run the game at 100fps+ and train a deep reinforcement learning model in real-time became commodity
+    
+- **Software** for deep reinforcement learning is available in [python]() with `stable-baselines3`
+    
+- **Proven** by [Sony AI]() that it is possible with what later became [Gran Turismo Sophy](https://www.gran-turismo.com/us/gran-turismo-sophy/)
+
+- **Use cases**:
+    - **Fine-tuning**: car setups, usually trial and error
+
+    - **Pushing the Boundary**: what's the theoretical best?
+
+    - **Better AI**: competitive in-game AI
+
+]
+
+.pull-right-25[
+
+&lt;img src="img/nfsmw.svg" alt="nfsmw logo" style="width: 400px; display: block; margin: 0 auto;"/&gt;
+
+&lt;img src="img/cuda.png" alt="Drawing" style="width: 200px; display: block; margin: 0 auto;"/&gt;
+
+&lt;img src="img/stable_baselines3.png" alt="Drawing" style="width: 150px; display: block; margin: 0 auto;"/&gt;
+]
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Implementing The Algorithm: Getting Started
+
+---
+# Implementing The Algorithm: Getting Started
+
+### Neither Game API Nor Any Code is Publicly Available: A Start from Scratch
+
+--
+    
+1. **Custom `gym` Environment**: Implement a custom (real-time) training environment (`action`, `observation`, `reward`, `done`) using [OpenAI]() `gym`
+
+--
+
+1. **Hack Game for API**: Create a (real-time) game API in python with all necessary functions by "hacking" the game's memory and access it using `pymem`
+
+--
+
+1. **Virtual Gamepad**: Control the game in real-time with a virtual gamepd `vgamepad`
+
+--
+
+1. **Agent Training**: Train the deep reinforcement learning algorithm using the `SAC` algorithm (Soft Actor Critic) from `stable_baselines3` with a `pytorch` backend
+
+--
+
+&lt;img src="img/rl_diag.png" alt="nfsmw cover" style="width: 950px; display: block; margin: 0 auto;"/&gt;
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Implementing The Algorithm: Custom `gym` Environment #1
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### Basic Methods Need to be Implemented in `NfsAiHotLap`
+
+
+```python
+class NfsAiHotLap(gym.Env):
+    """Custom Environment: NfsAiHotLap that follows the gym interface"""
+
+    def __init__(self):
+        """method to initialize especially the action and observation spaces"""
+        self.action_space
+        self.observation_space
+        
+    def step(self, action):
+        """method to perform one action and return the reward and the next observation"""
+        return observation, reward, done, info
+
+    def reset(self):
+        """method to reset the game and return the initial observation"""
+        return observation
+      
+    def render(self, mode="human"):
+        """method that outputs a render of the env, e.g. screenshot"""
+```
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### Basic Methods Need to be Implemented in `NfsAiHotLap`
+
+
+```python
+class NfsAiHotLap(gym.Env):
+    """Custom Environment: NfsAiHotLap that follows the gym interface"""
+
+*   def __init__(self):
+        """method to initialize especially the action and observation spaces"""
+        self.action_space
+        self.observation_space
+        
+    def step(self, action):
+        """method to perform one action and return the reward and the next observation"""
+        return observation, reward, done, info
+
+    def reset(self):
+        """method to reset the game and return the initial observation"""
+        return observation
+      
+    def render(self, mode="human"):
+        """method that outputs a render of the env, e.g. screenshot"""
+```
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### Basic Methods Need to be Implemented in `NfsAiHotLap`
+
+
+```python
+class NfsAiHotLap(gym.Env):
+    """Custom Environment: NfsAiHotLap that follows the gym interface"""
+
+    def __init__(self):
+        """method to initialize especially the action and observation spaces"""
+        self.action_space
+        self.observation_space
+        
+*   def step(self, action):
+        """method to perform one action and return the reward and the next observation"""
+        return observation, reward, done, info
+
+    def reset(self):
+        """method to reset the game and return the initial observation"""
+        return observation
+      
+    def render(self, mode="human"):
+        """method that outputs a render of the env, e.g. screenshot"""
+```
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### Basic Methods Need to be Implemented in `NfsAiHotLap`
+
+
+```python
+class NfsAiHotLap(gym.Env):
+    """Custom Environment: NfsAiHotLap that follows the gym interface"""
+
+    def __init__(self):
+        """method to initialize especially the action and observation spaces"""
+        self.action_space
+        self.observation_space
+        
+    def step(self, action):
+        """method to perform one action and return the reward and the next observation"""
+        return observation, reward, done, info
+
+*   def reset(self):
+        """method to reset the game and return the initial observation"""
+        return observation
+      
+    def render(self, mode="human"):
+        """method that outputs a render of the env, e.g. screenshot"""
+```
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### Basic Methods Need to be Implemented in `NfsAiHotLap`
+
+
+```python
+class NfsAiHotLap(gym.Env):
+    """Custom Environment: NfsAiHotLap that follows the gym interface"""
+
+    def __init__(self):
+        """method to initialize especially the action and observation spaces"""
+        self.action_space
+        self.observation_space
+        
+    def step(self, action):
+        """method to perform one action and return the reward and the next observation"""
+        return observation, reward, done, info
+
+    def reset(self):
+        """method to reset the game and return the initial observation"""
+        return observation
+      
+*   def render(self, mode="human"):
+        """method that outputs a render of the env, e.g. screenshot"""
+```
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### `action`: Combined Steering and Acceleration Input
+&gt; Give the agent a **virtual Xbox 360 Controller** to steer and accelerate in-game
+
+--
+
+### `reward`: Immediate Reward for Action Taken (Target Variable)
+
+&gt; Proxy reward the agent by how quickly it goes around the track with **delta lap completion**
+
+--
+
+### `observation`: The Feature Vector for the Algorithm
+
+&gt; Give the agent **telemetry** (speed, acceleration, ...), **lidar**, and a **gps navigation system** 
+
+--
+
+### `done`: Indicator if an Episode has ended
+
+&gt; Tell the agent when it's "Game Over" (one of **lap completion**, **time limit**, or **reverse**)
+
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Implementing The Algorithm: Hack Game for API
+
+---
+    
+# Implementing The Algorithm: Hack Game for API
+
+### There is No Game API
+
+--
+
+- **Real-Time Data Required**: Information from the game needs to be available in real-time, e.g. to calculate the `reward`, or end of an episode `done` even if the input to the game would be a screen capture
+
+--
+
+- **Extra Options**: [NFSMW Extra Options](https://github.com/ExOptsTeam/NFSMWExOpts/releases) for: windowed mode, more than 5 laps, teleport car at given speed and direction (for resetting after an episode), debug print
+
+--
+
+### Just Build One... With This Strategy
+
+--
+
+- **Access `speed.exe`**: The Game's variable are stored in the computers memory (RAM), for NFS:MW about 300 MB
+
+--
+
+- **Search RAM**: Find the right addresses (pointer) or patterns (dynamic) where the data you want is stored using a hex editor and scanning memory at various in-game situations for changes
+
+--
+
+- **Read RAM**: Use `pymem` to read variables from the game's memory in nanoseconds
+
+--
+
+- **Real-Time calculation**: Calculate everything else in `python` in real-time
+
+---
+    
+# Implementing The Algorithm: Hack Game for API
+
+### Example: Tracking `x, y, z` and `speed`
+
+
+```python
+from pymem import Pymem
+
+
+class TrackVehicle:
+    
+    def __init__(self):
+        # NFS:MW process is called "speed.exe"
+        self.pm =  Pymem("speed.exe")
+        
+    def track(self):
+        x = self.pm.read_float(0x00914560) # x-coordinate
+        y = self.pm.read_float(0x00914564) # y-coordinate
+        z = self.pm.read_float(0x00914568) # z-coordinate
+        speed = self.pm.read_float(0x009142C8) # speed
+        return((x, y, z, speed))
+```
+
+---
+    
+# Implementing The Algorithm: Hack Game for API
+
+### Currently Identified Variables
+
+| Variable   |      Type      |  Example           | Detail |
+|----------|---------|------------------------------|-------------|
+| `x, y, z` | `float` | `-365, 1000, 156` |  coordinates of the car in the game in `m` (like gps: lat, long, elevation) |
+| `speed` | `float` | `88.76` |  speed of the car in `m/s` |
+| `surface_l, surface_r` | `int` | `0` |  surface the car is driving on with the left/right wheels respectively, e.g. asphalt, grass, ... |
+| `angle` | `int` | `0xFB12` |  direction of the car, must be a mapping of the Euler angle from `[-pi, +pi]` |
+| `lap` | `int` | `3` |  the current lap of the race |
+| `steering, throttle` | `float` | `-0.6, 0.3` |  steering and throttle (currently only for [Logitech RumblePad 2]()) |
+| `gamestate` | `int` | `6` |  dummy variable for the game state, e.g. menu or within race |
+
+- Based on these variables everything else is calculated in the `NfsMw` API
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# [Demo Time: Telemetry]()
+
+---
+
+# Real-Time Telemetry is All We Need!
+
+&lt;center&gt;
+&lt;video width="85%" controls poster='img/bg_nfsmw.jpg'&gt;
+&lt;source src="video/20230423_telemetry.mkv" type="video/mp4"&gt;
+&lt;/video&gt;
+&lt;/center&gt;
+
+---
+# Implementing The Algorithm: Hack Game for API
+
+### Example: Racing Line and Track Boundaries (`x, y`, `speed`) for One Lap (01:09.810)
+
+![](nfsmwai_pres_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+# Implementing The Algorithm: Hack Game for API
+
+### Example: Steering and Speed (`steering`, `speed`) for One Lap (01:09.810)
+
+![](nfsmwai_pres_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+---
+    
+# Implementing The Algorithm: Hack Game for API
+
+### Some Available Methods in My `NfsMw` API: Vehicle Related
+
+
+```python
+class NfsMw():
+
+    def vehicle_telemetry(self):
+        """returns telemetry data: x, y, z, speed, sfc_l, sfc_r, direction"""
+        
+    def vehicle_lidar(self, resolution_degree=1):
+        """returns distances to next border for 180 degrees ahead"""
+        
+    def vehicle_collision(self):
+        """returns if there is a collision"""
+        
+    def vehicle_airtime(self):
+        """returns is vehicle is airborne"""
+        
+    def vehicle_reverse(self, rev_angle_threshold=0.6*np.pi):
+        """returns is vehicle is reversing"""
+```
+
+---
+    
+# Implementing The Algorithm: Hack Game for API
+
+### Some Available Methods in My `NfsMw` API: Lap Related
+
+
+```python
+class NfsMw():
+        
+    def lap(self):
+         """returns the current lap"""
+         
+    def laptime(self):
+         """returns the lap time clock"""
+         
+    def lap_completion(self):
+         """returns the lap completion"""
+         
+    def lap_angle_ahead(self, n_ahead=150):
+         """returns the direction of the track n points ahead"""
+         
+    def lap_radii_ahead(self, n_ahead=150, inverse=True):
+        """returns the inverse radii n points ahead"""
+```
+
+---
+    
+# Implementing The Algorithm: Hack Game for API
+
+### Some Available Methods in My `NfsMw` API: Game Related
+
+
+```python
+class NfsMw():
+        
+    def state(self):
+      """returns the gamestate"""
+      
+    def reset_vehicle(self):
+        """reset car to saved start location with hotkey from NFS:MW ExtraOpts"""
+        
+    def restart_race(self):
+        """reset the whole race and start at lap 1 again"""
+        
+    def screenshot(self):
+        """returns screenshot as numpy array"""
+```
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Implementing The Algorithm: Virtual Gamepad
+
+---
+# Implementing The Algorithm: Virtual Gamepad
+
+### Just Give it a Virtual Xbox 360 Controller...
+
+.pull-left-75[
+- In order to steer the car inputs need to be sent to the game
+
+- It's known that controlling the game via Keyboard is too choppy and therefore slow
+
+- I use the `vgamepad` library in python, wrapper for [ViGEm](https://github.com/ViGEm) (Virtual Gamepad Emulation Framework) to create a [virtual Xbox 360 Controller]()
+
+- Steering is mapped to the left analogue stick x-axis, acceleration is mapped to the right analogue stick y-axis (default in the game)
+
+- Signal is continuous between `[-1, +1]`
+]
+
+.pull-right-25[
+&lt;img src="img/xbox_controller.png" alt="xbox360 controller" style="width: 300px; display: block; margin: 0 auto;"/&gt;
+]
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Implementing The Algorithm: Custom `gym` Environment #2
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### `action`: Combined Steering and Acceleration Input
+
+&gt; Give the agent a **virtual Xbox 360 Controller** to steer and accelerate in-game
+
+--
+
+.pull-left-75[
+- **Type**: `float32`
+- **Size**: 2
+- **Components**:
+    - steering: left analogue stick x-axis, full left to full right encoded within `[-1, +1]` 
+    - acceleration: right analogue stick y-axis, full brake to full throttle encoded within `[-1, +1]` 
+- **Example**: `action=[-0.3, +1.0]` would be 30% steering left and full throttle
+- **Notes**: 
+    - For steering every value makes sense
+    - For acceleration only `[-0.4, 0.7, 1.0]` make sense (brake, but not reverse, lift, full throttle)
+]
+
+.pull-right-25[
+&lt;img src="img/xbox_controller.png" alt="xbox360 controller" style="width: 300px; display: block; margin: 0 auto;"/&gt;
+]
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### `reward`: Immediate Reward for Action Taken (Target Variable)
+
+&gt; Proxy reward the agent by how quickly it goes around the track with **delta lap completion**
+
+--
+
+- **Type**: `float32`
+- **Size**: 1
+- **Components**:
+    - Delta in lap completion between two steps
+- **Example**: `reward=0.00035` would mean 0.035% of additional lap completion achieved
+- **Notes**: 
+    - lap completion is within `[0, 1]` and measured to the in-game millimeter
+    - high enough discount factor `[0.98, 0.99]` ensures to find the racing line (unlike speed)
+    
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### `observation`: The Feature Vector for the Algorithm
+
+&gt; Give the agent **telemetry** (speed, acceleration, ...), **lidar**, and a **gps navigation system** 
+
+--
+
+- **Type**: `float32`
+- **Size**: 593
+- **Components**:
+    - `vehicle_telemetry [4]`: speed, acceleration, surface, direction
+    - `vehicle_lidar [181]`: 180 degree distances to the nearest boundary in 1 degree steps
+    - `vehicle_collision [1]`: collision indicator
+    - `vehicle_reverse [1]`: reverse indicator
+    - `lap_radii_ahead [200]`: inverse curve radii for 200 points (ca. 300m) ahead
+    - `lap_angle_ahead [200]`: curve angle for 200 points (ca. 300m) ahead
+    - `streering_t5 [5]`: last 5 steering inputs
+- **Example**:
+- **Notes**:
+    - This is the feature vector for the algorithm, and the only information it gets
+    - The agent is **not** trained on images as this would be slow
+    - All features need to be calculated in real-time from the game's variables
+    - Feature calculation takes 10ms on my machine
+
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### Example: `observation` for main features lidar and GPS naviagtion
+
+
+.move_raster[
+![](nfsmwai_pres_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### Example: `observation` for main features lidar and GPS naviagtion
+
+.pull-left[
+![](nfsmwai_pres_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+![](nfsmwai_pres_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+]
+    
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### Example: `observation` for main features lidar and GPS naviagtion
+
+
+.move_raster[
+![](nfsmwai_pres_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+]
+
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### Example: `observation` for main features lidar and GPS naviagtion
+
+.pull-left[
+![](nfsmwai_pres_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+![](nfsmwai_pres_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+]
+
+ 
+---
+# Implementing The Algorithm: Custom `gym` Environment
+
+### `done`: Indicator if an Episode has ended
+
+&gt; Tell the agent when it's "Game Over" (one of **lap completion**, **time limit**, or **reverse**)
+
+--
+
+- **Type**: `bool`
+- **Size**: 1
+- **Components**:
+    - Indicator of Episode has ended
+- **Example**: `done=False` would mean the episode has not ended
+- **Notes**: There are 3 reasons for `done=True`
+    - lap completion (best case)
+    - time limit (here: 180 seconds)
+    - vehicle reverse (more than 110 degree turn relative to track direction)
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Implementing The Algorithm: Agent Training
+
+---
+
+# Implementing The Algorithm: Agent Training
+
+### That's Actually the Easy Part With `stable_baselines3` (Basic Code)
+
+
+```python
+from stable_baselines3 import SAC
+
+from control.vnfsgamepad import VNfsGamePad
+from env import NfsAiHotLap
+
+# init virtual game pad
+pad = VNfsGamePad()
+# create environment
+nfsmwai = NfsAiHotLap(pad)
+# create model
+model = SAC("MlpPolicy", nfsmwai, gamma=0.985)
+# learn
+model.learn(total_timesteps=1e7)
+```
+
+- The main code has some more features like a logging and saving callback
+
+---
+
+# Implementing The Algorithm: Agent Training
+
+### That's Actually the Easy Part With `stable_baselines3` (Basic Code)
+
+
+```python
+from stable_baselines3 import SAC
+
+from control.vnfsgamepad import VNfsGamePad
+from env import NfsAiHotLap
+
+*# init virtual game pad
+pad = VNfsGamePad()
+# create environment
+nfsmwai = NfsAiHotLap(pad)
+# create model
+model = SAC("MlpPolicy", nfsmwai, gamma=0.985)
+# learn
+model.learn(total_timesteps=1e7)
+```
+
+- Instantiates the virtual Xbox 360 Gamepad. Needs to run before the game starts
+
+- There is also a `VNfsKeyboard` class, but it's slower (only discrted `-1` or `+1`) input
+
+---
+
+# Implementing The Algorithm: Agent Training
+
+### That's Actually the Easy Part With `stable_baselines3` (Basic Code)
+
+
+```python
+from stable_baselines3 import SAC
+
+from control.vnfsgamepad import VNfsGamePad
+from env import NfsAiHotLap
+
+# init virtual game pad
+pad = VNfsGamePad()
+*# create environment
+nfsmwai = NfsAiHotLap(pad)
+# create model
+model = SAC("MlpPolicy", nfsmwai, gamma=0.985)
+# learn
+model.learn(total_timesteps=1e7)
+```
+
+- Instantiates the game environment, i.e. the custom `env`
+
+- Uses the `NfsMw` api to interact with the game and to calculate `observation, reward, done, action`
+
+---
+
+# Implementing The Algorithm: Agent Training
+
+### That's Actually the Easy Part With `stable_baselines3` (Basic Code)
+
+
+```python
+from stable_baselines3 import SAC
+
+from control.vnfsgamepad import VNfsGamePad
+from env import NfsAiHotLap
+
+# init virtual game pad
+pad = VNfsGamePad()
+# create environment
+nfsmwai = NfsAiHotLap(pad)
+*# create model
+model = SAC("MlpPolicy", nfsmwai, gamma=0.985)
+# learn
+model.learn(total_timesteps=1e7)
+```
+
+- Defines the model as [Soft Actor Critic]() (`SAC`), using a [Multilayer Perceptron (MLP)](https://en.wikipedia.org/wiki/Multilayer_perceptron) (fully connected feed-forward DNN)
+
+- Discount factor for future `reward` set to `0.985` (default `0.99`)
+
+---
+
+# Implementing The Algorithm: Agent Training
+
+### That's Actually the Easy Part With `stable_baselines3` (Basic Code)
+
+
+```python
+from stable_baselines3 import SAC
+
+from control.vnfsgamepad import VNfsGamePad
+from env import NfsAiHotLap
+
+# init virtual game pad
+pad = VNfsGamePad()
+# create environment
+nfsmwai = NfsAiHotLap(pad)
+# create model
+model = SAC("MlpPolicy", nfsmwai, gamma=0.985)
+*# learn
+model.learn(total_timesteps=1e7)
+```
+
+- Starts the training progress
+
+- Training in real-time at 30-60hz takes about 20h on my 7 year old gaming PC (Intel Xeon E3-1231 v3, Nvidia Geforce GTX1070)
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# [Demo Time: Learning Progress]()
+---
+
+# Learning Progress: After 0.25h (20k Steps) "Ahhh its a Car?"
+
+&lt;center&gt;
+&lt;video width="85%" controls poster='img/bg_nfsmw.jpg'&gt;
+&lt;source src="video/20230423_learning_20k.mkv" type="video/mp4"&gt;
+&lt;/video&gt;
+&lt;/center&gt;
+
+---
+
+# Learning Progress: After 1h (80k Steps) "I'm driving!?"
+
+&lt;center&gt;
+&lt;video width="85%" controls poster='img/bg_nfsmw.jpg'&gt;
+&lt;source src="video/20230423_learning_80k.mkv" type="video/mp4"&gt;
+&lt;/video&gt;
+&lt;/center&gt;
+
+---
+
+# Learning Progress: After 3-5h (500k Steps) "Let's Wall-Ride"
+
+&lt;center&gt;
+&lt;video width="85%" controls poster='img/bg_nfsmw.jpg'&gt;
+&lt;source src="video/20230423_learning_500k.mkv" type="video/mp4"&gt;
+&lt;/video&gt;
+&lt;/center&gt;
+
+---
+
+# Learning Progress: After 10-20h (2m Steps) "I'm a Racer!"
+
+&lt;center&gt;
+&lt;video width="85%" controls poster='img/bg_nfsmw.jpg'&gt;
+&lt;source src="video/20230423_learning_2m.mkv" type="video/mp4"&gt;
+&lt;/video&gt;
+&lt;/center&gt;
+
+---
+
+# Learning Progress: "I Can Race Other Cars, too"
+
+&lt;center&gt;
+&lt;video width="85%" controls poster='img/bg_nfsmw.jpg'&gt;
+&lt;source src="video/20230423_learning_other.mkv" type="video/mp4"&gt;
+&lt;/video&gt;
+&lt;/center&gt;
+
+---
+
+
+# Implementing The Algorithm: Agent Training
+
+### Lap Time Progress From Scratch (Best Ever AI Lap: 1:10:47)
+
+![](nfsmwai_pres_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Conclusion
+
+---
+# Conclusion
+
+### Challenges with the approach: great cornering, bad on stratights
+
+--
+    
+- **Reward**: Instant `reward` only with tiny, not very sensitive to jitter (higher discount factor (`gamma`) does not work). Penalties on steering did not work so far.
+
+--
+    
+- **Real-Time**: Learning/input steps and game are not synced, possible fix: [Real-Time Gym (rtgym)](https://pypi.org/project/rtgym/)
+
+--
+
+- **Game FPS**: Unstable frame times of the game
+
+--
+
+- **Exploration Trade-Off**: Potentially too high exploration coefficient (`ent_coef`) (manually lowering did not work)
+
+--
+
+- **Filter**: Filtering at testing does not work: Inexperience high speed at corners after long straight
+
+--
+
+- **Observation** Noisy and maybe incomplete input features, e.g. does not see many things, e.g. airtime, surface ahead, obstacles, ...
+
+---
+# Conclusion
+
+### Time-Trail AI for Need for Speed: Most Wanted
+
+--
+
+- **Works Well**: Using `SAC` from `stable_baselines3` and some basic features a good speed (1:10:47) and a very stable model can be achieved in a quick time
+
+--
+
+- **Accessible**: Training in real-time at 30-60hz is possible on my 7 year old gaming PC (Intel Xeon E3-1231 v3, Nvidia Geforce GTX1070)
+
+--
+
+- **Comparably Fast**: Training takes about 24-48h (single instance of the game, single car) in real-time (Sony[1]: 56-73h, but 80 cars in parallel on 4 PS4, Sony[2]: up to 1000 PS4 in parallel)
+
+--
+
+- **Generalization**: Trained model generalizes very well to other cars without re-training
+
+--
+
+- **Track Specific**: However does generalize poorly for other tracks, makes the track, but many mistakes (same for humans btw.)
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Thank You!
+
+---
+# Thank You
+
+### Special Thanks
+
+- [Inko Elgezua Fernández](http://inko.elgezua.com/), robotics and reinforcement learning expert, and colleague at E.ON, for many helpful comments, fruitful discussions, and motivation
+
+- [Anıl Gezergen (@nlgxzef)](https://github.com/nlgxzef) from [NFSMW Extra Options](https://github.com/ExOptsTeam/NFSMWExOpts/releases), who does a sick job reverse engineering in-game functions and helped with some comments to get me started
+
+- [Florian Fuchs](https://ai.sony/people/Florian-Fuchs/) from [Sony AI]() for pointing me at a pre-print version with more appendices for Sony[1] and some comments
+
+- [Yann Bouteiller](https://ca.linkedin.com/in/yann-bouteiller-46a18212b) autor and creator of `vgamepad` running a similar project [tmrl](https://github.com/trackmania-rl/tmrl) for TrackMania for a helpful comment
+
+---
+# Thank You
+
+### Now Make a Pull-Request! Let's get the WR!
+
+- **Code and Models**: are Open Source and properly structured and ok-ish documented from today onwards:
+
+&lt;center&gt;&lt;h3&gt;&lt;a href="https://gitlab.com/schw4rz/nfsmwai"&gt;gitlab.com/schw4rz/nfsmwai&lt;/a&gt;&lt;/h3&gt;A Competitive Time-Trial AI for NFS:MW Using Deep RL&lt;/center&gt;
+
+&lt;img src="img/nfsmwai_qr.png" alt="nfsmwai_qr logo" style="width: 250px; display: block; margin: 0 auto;"/&gt;
+
+---
+background-image: url('img/bg_nfsmw.jpg')
+background-size: cover
+class: center, middle, inverse
+
+# Backup
+
+---
+# A Competitive Time-Trial AI for NFS:MW Using Deep RL
+
+### Need for Speed: Most Wanted is a Good Fit
+
+.pull-left-75[
+- **In-depth knowledge**: about the game from my time as eSports athlete: benchmark (WR) and car setups available
+
+- **Stability of conditions**: no damage, (tire) degradation, or weather effects on car or track
+    
+- **Game properties**: clear track boundaries, no *weird* driving techniques like wall-rides or double-steering required
+    
+- **Active Community**: Active time-trial and modding community, e.g. [NFSMW Extra Options](https://github.com/ExOptsTeam/NFSMWExOpts/releases)
+
+]
+
+.pull-right-25[
+&lt;img src="img/black_ed.webp" alt="nfsmw cover" style="width: 400px; display: block; margin: 0 auto;"/&gt;
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "monokai",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
